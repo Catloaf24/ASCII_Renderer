@@ -16,7 +16,7 @@ int main() {
 	pixImg.width = greyImg.width;
 	pixImg.height = greyImg.height;
 	pixImg.channels = greyImg.channels;
-	pixImg.data = new unsigned char[static_cast<size_t>(pixImg.width) * pixImg.height * pixImg.channels]; 
+	pixImg.data = new unsigned char[static_cast<size_t>(pixImg.width) * pixImg.height * pixImg.channels];
 	memset(pixImg.data, 0, static_cast<size_t>(pixImg.width) * pixImg.height * pixImg.channels);
 
 	const int radius = 10;
@@ -29,17 +29,7 @@ int main() {
 
 	output = fillASCII(pixImg.data, pixImg.width, pixImg.height, pixImg.channels, radius);
 
-	std::cout << "ASCII Art:" << std::endl;
-	std::cout << output[0];
-	for (int i = 1; i < size; i++) {
-		if (i % (pixImg.width / radius) == 0) {
-			std::cout << "\n";
-			std::cout << output[i];
-		}
-		else {
-			std::cout << output[i];
-		}
-	}
+	printASCII(output, pixImg.width, pixImg.height, radius);
 
 	stbi_image_free(img.data);
 	stbi_image_free(greyImg.data);
