@@ -233,7 +233,6 @@ std::vector<char> fillASCII(unsigned char* data, int w, int h, int c, int r) {
 
 void printASCII(std::vector<char> output, int w, int h, int r) {
 	const int size = (w / r) * (h / r);
-	std::cout << "ASCII Art:" << std::endl;
 	std::cout << output[0];
 	for (int i = 1; i < size; i++) {
 		if (i % (w / r) == 0) {
