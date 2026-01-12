@@ -21,6 +21,11 @@ struct Image {
 	int channels;
 };
 
+int scaleInt(int a, int aMin, int aMax, int min, int max) {
+	long double percentage = ((float)a - (float)aMin) / ((float)aMin - (float)aMax);
+	return (percentage * (min - max) + min);
+}
+
 Image loadImage(const char* path) {
 	char* actPath = new char[strlen(RESOURCE_DIR) + strlen(path) + 1];
 	strcpy(actPath, RESOURCE_DIR);
@@ -168,6 +173,12 @@ Image blurImg(unsigned char* data, int w, int h, int c, int r) {
 			ab /= sampledPixels.size();
 			aa /= sampledPixels.size();
 
+			/*
+			ar = scaleInt(ar, 0, 80, 0, 255);
+			ag = scaleInt(ar, 0, 80, 0, 255);
+			ab = scaleInt(ar, 0, 80, 0, 255);
+			*/
+
 			writeRadius(pixImg.data, j, i, w, h, c, r, Pixel{ ar, ag, ab, aa });
 		}
 	}
@@ -199,9 +210,9 @@ Image pixelateImg(unsigned char* data, int w, int h, int c, int r) {
 			aa /= sampledPixels.size();
 
 			/*
-			ar = ((ar - 0) / (255 - 0)) * (255 - 0) + 0;
-			ag = ((ag - 0) / (255 - 0)) * (255 - 0) + 0;
-			ab = ((ab - 0) / (255 - 0)) * (255 - 0) + 0;
+			ar = scaleInt(ar, 0, 100, 0, 255);
+			ag = scaleInt(ar, 0, 100, 0, 255);
+			ab = scaleInt(ar, 0, 100, 0, 255);
 			*/
 
 			writeRadius(pixImg.data, j, i, w, h, c, r, Pixel{ ar, ag, ab, aa });

@@ -22,7 +22,7 @@ int main() {
 	const int radius = 10;
 	pixImg = pixelateImg(greyImg.data, pixImg.width, pixImg.height, pixImg.channels, radius);
 
-	saveImage("/pixCatloafface.png", pixImg);
+	saveImage("/pixCatloaf.png", pixImg);
 
 	const int size = (pixImg.width / radius) * (pixImg.height / radius);
 	std::vector<char> output(size + 1);
