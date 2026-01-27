@@ -23,7 +23,7 @@ set(STB_IMAGE_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/external/stb_img")
 #--------------------------------------------------------------
 # Executable
 #--------------------------------------------------------------
-add_executable(Main "src/Mains/main.cpp" "src/Mains/helpers.h")
+add_executable(Main "src/Mains/main.cpp" "src/Mains/helpers.h"  "src/Mains/CustomException.h")
 
 
 # Includes

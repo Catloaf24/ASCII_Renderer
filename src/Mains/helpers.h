@@ -5,6 +5,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
+#include "CustomException.h"
+
 #include <vector>
 
 #include <Windows.h>
@@ -34,10 +36,10 @@ Image loadImage(char* path) {
 	int width, height, channels;
 	unsigned char* img = stbi_load(path, &width, &height, &channels, 0);
 	if (img == NULL) {
-		std::cerr << "Error loading image" << std::endl;
+		throw CustomException("Failed to load image");
 	}
 
-	//delete[] actPath;
+	//delete[] path;
 
 	return Image{ img, width, height, channels };
 }

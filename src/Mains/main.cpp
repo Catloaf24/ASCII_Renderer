@@ -2,7 +2,6 @@
 
 #include "helpers.h"
 
-
 int main(int argc, char *argv[]) {
 	char* actPath;
 	if (IsDebuggerPresent()) {
@@ -12,10 +11,27 @@ int main(int argc, char *argv[]) {
 		strcat(actPath, path);
 	}
 	else {
+		try {
+			if (argc != 2) {
+				//std::cerr << "Usage: ASCIIConverter.exe <path_to_image>" << std::endl;
+				throw CustomException("Invalid arguments!\nUsage: ASCIIConverter.exe <path_to_image>");
+			}
+		}
+		catch (CustomException e) {
+			std::cerr << e.what() << std::endl;
+			return EXIT_FAILURE;
+		}
 		actPath = argv[1];
 	}
 
-	Image originalImg = loadImage(actPath);
+	Image originalImg;
+	try {
+		originalImg = loadImage(actPath);
+	}
+	catch (CustomException e) {
+		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
+	}
 
 	Image greyImg = img2grey(originalImg);
 	
@@ -40,5 +56,5 @@ int main(int argc, char *argv[]) {
 	stbi_image_free(greyImg.data);
 	//stbi_image_free(pixImg.data);
 	delete[] pixImg.data;
-	return 0;
+	return EXIT_SUCCESS;
 }
