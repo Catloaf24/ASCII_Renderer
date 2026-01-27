@@ -7,6 +7,9 @@
 
 #include <vector>
 
+#include <Windows.h>
+#include <debugapi.h>
+
 struct Pixel {
 	unsigned int r;
 	unsigned int g;
@@ -26,18 +29,15 @@ int scaleInt(int a, int aMin, int aMax, int min, int max) {
 	return (percentage * (min - max) + min);
 }
 
-Image loadImage(const char* path) {
-	char* actPath = new char[strlen(RESOURCE_DIR) + strlen(path) + 1];
-	strcpy(actPath, RESOURCE_DIR);
-	strcat(actPath, path);
+Image loadImage(char* path) {
 
 	int width, height, channels;
-	unsigned char* img = stbi_load(actPath, &width, &height, &channels, 0);
+	unsigned char* img = stbi_load(path, &width, &height, &channels, 0);
 	if (img == NULL) {
 		std::cerr << "Error loading image" << std::endl;
 	}
 
-	delete[] actPath;
+	//delete[] actPath;
 
 	return Image{ img, width, height, channels };
 }

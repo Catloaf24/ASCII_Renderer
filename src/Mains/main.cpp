@@ -3,14 +3,21 @@
 #include "helpers.h"
 
 
-int main() {
-	Image img = loadImage("/catloaf.png");
+int main(int argc, char *argv[]) {
+	char* actPath;
+	if (IsDebuggerPresent()) {
+		const char* path = "/awesomeface.png";
+		actPath = new char[strlen(RESOURCE_DIR) + strlen(path) + 1];
+		strcpy(actPath, RESOURCE_DIR);
+		strcat(actPath, path);
+	}
+	else {
+		actPath = argv[1];
+	}
 
-	Image greyImg = img2grey(img);
+	Image originalImg = loadImage(actPath);
 
-	saveImage("/greyCatloaf.png", greyImg);
-
-	greyImg = loadImage("/greyCatloaf.png");
+	Image greyImg = img2grey(originalImg);
 	
 	Image pixImg = {};
 	pixImg.width = greyImg.width;
@@ -22,8 +29,6 @@ int main() {
 	const int radius = 10;
 	pixImg = pixelateImg(greyImg.data, pixImg.width, pixImg.height, pixImg.channels, radius);
 
-	saveImage("/pixCatloaf.png", pixImg);
-
 	const int size = (pixImg.width / radius) * (pixImg.height / radius);
 	std::vector<char> output(size + 1);
 
@@ -31,8 +36,9 @@ int main() {
 
 	printASCII(output, pixImg.width, pixImg.height, radius);
 
-	stbi_image_free(img.data);
+	stbi_image_free(originalImg.data);
 	stbi_image_free(greyImg.data);
+	//stbi_image_free(pixImg.data);
 	delete[] pixImg.data;
 	return 0;
 }

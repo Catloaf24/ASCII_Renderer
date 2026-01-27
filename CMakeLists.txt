@@ -31,7 +31,7 @@ target_include_directories(Main PRIVATE
 	${STB_IMAGE_INCLUDE_DIR}
 )
 
-# Link libraries
-#target_link_libraries(Main PRIVATE 
-#
-#)
+#Link libraries
+target_link_libraries(Main PRIVATE 
+	Kernel32.lib
+)
